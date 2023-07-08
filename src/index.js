@@ -1,3 +1,12 @@
-import { printHello } from '#Lib/hello.js';
+import '#Config/env.js';
+import httpServer from '#Config/http.js';
+import conectionDB from '#Config/db.js';
 
-printHello();
+const boostrap = async () => {
+    await conectionDB();
+    
+    httpServer.listen(process.env.PORT, () => {
+        console.log(`Servidor escuchando en el ${process.env.PORT}`);
+    });
+};
+boostrap();
