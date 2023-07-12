@@ -1,12 +1,21 @@
 import { Sequelize, DataTypes, Model } from 'sequelize';
-const sequelize = new Sequelize('sqlite::memory:');
-
+//const sequelize = new Sequelize('sqlite::memory:');
+const sequelize = new Sequelize(
+    process.env.DB,
+    process.env.USERDB,
+    process.env.PASSWORDDB,
+    {
+        host: process.env.HOST,
+        dialect: 'mysql',
+    }
+);
 class User extends Model {}
 
 User.init(
     {
         // Model attributes are defined here
         _id: {
+            primaryKey: true,
             type: DataTypes.STRING,
             allowNull: false,
         },
@@ -21,6 +30,7 @@ User.init(
         },
         lastName: {
             type: DataTypes.STRING,
+            allowNull:false,
             // allowNull defaults to true
             validate: {
                 len: [4, 50],
@@ -29,14 +39,15 @@ User.init(
         },
         email: {
             type: DataTypes.STRING,
+            allowNull:false,
+            unique: true,
             validate: {
-                isEmail: true,
-                notNull: true,
-                unique: true,
+                isEmail: true
             },
         },
         password: {
             type: DataTypes.STRING,
+            allowNull:false,
             validate: {
                 notNull: true,
             },
@@ -50,4 +61,6 @@ User.init(
 );
 
 // the defined model is the class itself
-console.log(User === sequelize.models.User); // true
+
+User.sync();
+export default User;

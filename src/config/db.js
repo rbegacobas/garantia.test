@@ -16,6 +16,6 @@ async function conectionDB(){
     }
 }
 
-conectionDB();
+
 
 export default conectionDB;

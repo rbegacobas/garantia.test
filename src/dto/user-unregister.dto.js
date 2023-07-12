@@ -1,11 +1,10 @@
 import { Type } from '@sinclair/typebox';
 import Ajv from 'ajv';
-import addFormats from 'ajv-formats';
-import addErrors from 'ajv-errors';
-import { emailDTOSchema, passwordDTOSchema } from '#Lib/dto-type.js';
 
-const UpdateEmailDTOSchema = Type.Object({
-    email: emailDTOSchema,
+import addErrors from 'ajv-errors';
+import { passwordDTOSchema } from '#Lib/dto-type.js';
+
+const unregisterDTOSchema = Type.Object({
     password: passwordDTOSchema,
 },{
     additionalProperties: false,
@@ -19,22 +18,19 @@ const ajv = new Ajv({ allErrors: true })
     .addKeyword('modifier');
 ajv.addFormat('password', /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/);
 
-addFormats(ajv, ['email']);
 addErrors(ajv);
 
-const validateSchema = ajv.compile(UpdateEmailDTOSchema);
+const validateSchema = ajv.compile(unregisterDTOSchema);
 
-const userUpdateEmailDTO = (req, res, next) => {
+const userUnregisterDTO = (req, res, next) => {
     const isDTOValid = validateSchema(req.body);
     console.log(isDTOValid);
 
     if (!isDTOValid)
-        return res
-            .status(400)
-            .send({
-                errors: validateSchema.errors.map((error) => error.message),
-            });
+        return res.status(400).send({
+            errors: validateSchema.errors.map((error) => error.message),
+        });
     next();
 };
 
-export default userUpdateEmailDTO;
+export default userUnregisterDTO;
