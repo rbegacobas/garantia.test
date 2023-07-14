@@ -3,7 +3,7 @@ import { jwtVerify } from "jose";
 
 const userJWTDTO = async(req,res,next)=>{
     const {authorization}= req.headers;
-    if(!authorization)return res.status(401).send('Usuario no autenticado')
+    if(!authorization)return res.status(401).send({errors:['Usuario no autenticado']})
     
     const jwt = authorization.split(' ')[1]
  
@@ -18,7 +18,7 @@ const userJWTDTO = async(req,res,next)=>{
 
         next();
     } catch (error) {
-        return res.status(401).send('Usuario no autenticado')
+        return res.status(401).send({errors:['Usuario no autenticado']})
     
     }
 

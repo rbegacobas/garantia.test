@@ -9,7 +9,7 @@ const userProfileController = async (req, res) => {
     const existingUserById = await User.findByPk(id);
 
 
-    if (!existingUserById) return res.status(401).send('Usuario no autorizado');
+    if (!existingUserById) return res.status(401).send({errors:['Usuario no autorizado']});
 
     const { _id, firstName, lastName, email } = existingUserById;
     return res.send({ _id, firstName, lastName, email });

@@ -2,7 +2,7 @@ import User from '#Models/user.model.js';
 import bcrypt from 'bcrypt';
 
 const userRegisterController = async (req, res) => {
-    const { /*_id,*/ name, surname, email, password } = req.body;
+    const { name, surname, email, password } = req.body;
 
 
     const existingUserByEmail = await User.findOne({
@@ -12,14 +12,14 @@ const userRegisterController = async (req, res) => {
     });
    
     if (existingUserByEmail)
-        return res.status(409).send('ya existe usuario con ese email');
+        return res.status(409).send({errors:['ya existe usuario con ese email']});
     const hashedPassword = await bcrypt.hash(password, 12);
 
     // Create a new user
     
     
         const newUser = await User.create({
-            //_id: _id,
+            
             firstName: name,
             lastName: surname,
             email: email,

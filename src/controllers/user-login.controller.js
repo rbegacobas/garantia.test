@@ -12,10 +12,10 @@ const userLoginController = async (req, res) => {
     });
    
     if (!existingUserByEmail)
-        return res.status(401).send('Credenciales incorrectas');
+        return res.status(401).send({errors:['Credenciales incorrectas']});
    // const hashedPassword = await bcrypt.hash(password, 12);
 const checkpassword = await compare(password, existingUserByEmail.password)
-   if(!checkpassword) return res.status(401).send('Credenciales incorrectas') 
+   if(!checkpassword) return res.status(401).send({errors:['Credenciales incorrectas']}) 
     const jwtConstructor = new SignJWT({id:existingUserByEmail._id})
 
     const encoder = new TextEncoder();
