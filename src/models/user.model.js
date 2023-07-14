@@ -1,5 +1,5 @@
 import { Sequelize, DataTypes, Model } from 'sequelize';
-//const sequelize = new Sequelize('sqlite::memory:');
+
 const sequelize = new Sequelize(
     process.env.DB,
     process.env.USERDB,
@@ -15,42 +15,41 @@ User.init(
     {
         // Model attributes are defined here
         _id: {
+            type: DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
             primaryKey: true,
-            type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: false
         },
         firstName: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
                 len: [2, 20],
-                isAlpha: true,
-                notNull: true,
+                
+                
             },
         },
         lastName: {
             type: DataTypes.STRING,
-            allowNull:false,
+            allowNull: false,
             // allowNull defaults to true
             validate: {
                 len: [4, 50],
-                isAlpha: true,
+               
             },
         },
         email: {
             type: DataTypes.STRING,
-            allowNull:false,
+            allowNull: false,
             unique: true,
             validate: {
-                isEmail: true
+                isEmail: true,
             },
         },
         password: {
             type: DataTypes.STRING,
-            allowNull:false,
-            validate: {
-                notNull: true,
-            },
+            allowNull: false,
+            
         },
     },
     {

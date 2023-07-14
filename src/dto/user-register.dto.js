@@ -3,7 +3,7 @@ import Ajv from 'ajv';
 import addFormats from 'ajv-formats';
 import addErrors from 'ajv-errors';
 import {
-    idDTOSchema,
+    //idDTOSchema,
     nameDTOSchema,
     surnameDTOSchema,
     emailDTOSchema,
@@ -11,7 +11,7 @@ import {
 } from '#Lib/dto-type.js';
 
 const RegisterDTOSchema = Type.Object({
-    _id: idDTOSchema,
+    //_id: idDTOSchema,
     name: nameDTOSchema,
     surname: surnameDTOSchema,
     email: emailDTOSchema,
@@ -28,7 +28,7 @@ const ajv = new Ajv({ allErrors: true })
     .addKeyword('modifier');
 ajv.addFormat('password', /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/);
 
-addFormats(ajv, ['email', 'uuid']);
+addFormats(ajv, ['email'/*, 'uuid'*/]);
 addErrors(ajv);
 
 const validateSchema = ajv.compile(RegisterDTOSchema);
