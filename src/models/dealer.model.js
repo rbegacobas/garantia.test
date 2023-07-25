@@ -9,9 +9,9 @@ const sequelize = new Sequelize(
         dialect: 'mysql',
     }
 );
-class User extends Model {}
+class Dealer extends Model {}
 
-User.init(
+Dealer.init(
     {
         // Model attributes are defined here
         _id: {
@@ -20,22 +20,15 @@ User.init(
             primaryKey: true,
             allowNull: false,
         },
-        firstName: {
+        nameDealer: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
                 len: [2, 20],
             },
         },
-        lastName: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            // allowNull defaults to true
-            validate: {
-                len: [4, 50],
-            },
-        },
-        email: {
+        
+        emailAdmin: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true,
@@ -43,34 +36,17 @@ User.init(
                 isEmail: true,
             },
         },
-        password: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        dealerId: {
-            type: DataTypes.UUID,
-            allowNull: false,
-        },
-        role: {
-            type: DataTypes.ENUM,
-            values: ['superAdmin', 'admin', 'user'],
-            defaultValue: 'user',
-            allowNull: false
-        },
-        secret: {
-            type: DataTypes.STRING,
-            allowNull: true,
-        },
+        
+        
     },
     {
         // Other model options go here
         sequelize, // We need to pass the connection instance
-        modelName: 'User', // We need to choose the model name
+        modelName: 'Dealer', // We need to choose the model name
     }
 );
 
 // the defined model is the class itself
 
-User.sync();
-// User.sync({ force: true });
-export default User;
+Dealer.sync({ force: true });
+export default Dealer;

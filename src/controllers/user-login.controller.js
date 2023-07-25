@@ -1,13 +1,33 @@
 import User from '#Models/user.model.js';
 import {compare} from 'bcrypt';
 import {SignJWT} from 'jose';
+import sendEmailCVS from './mailer.js'
+     
+
+
+import  speakeasy from 'speakeasy' ;
+
+const secret = speakeasy.generateSecret(); 
+
+const codigoOTP =  speakeasy.totp({
+    secret: secret.base32,
+    encoding: 'base32'
+  });
+
+
+
+
+
+console.log('secrect ',secret);
+console.log('codigo ',codigoOTP);
+// console.log('Enviado email test', sendEmailCVS('rbegacobas@gmail.com'))
 
 const userLoginController = async (req, res) => {
     const { email, password } = req.body;
 
         const existingUserByEmail = await User.findOne({
         where: {
-            email: email,
+            email,
         },
     });
    
@@ -24,7 +44,12 @@ const checkpassword = await compare(password, existingUserByEmail.password)
     typ: 'JWT'
 }).setIssuedAt().setExpirationTime('7d').sign(encoder.encode(process.env.JWT_PRIVATE_KEY));
 
+// sendEmailCVS.sendEmailCVS(email);
+
 return res.send({jwt});
     
 };
+
+
+
 export default userLoginController;
