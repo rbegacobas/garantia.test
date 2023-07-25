@@ -41,3 +41,12 @@ export const passwordDTOSchema =Type.String({
     },
 });
 
+
+export const dealerIdDTOSchema =Type.String({
+    minLength: 4,
+    maxLength: 50,
+    errorMessage: {
+        minLength: 'El tipo de id no es valido',
+        maxLength: 'El id no es de este formato',
+    },
+});

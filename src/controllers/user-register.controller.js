@@ -2,7 +2,7 @@ import User from '#Models/user.model.js';
 import bcrypt from 'bcrypt';
 
 const userRegisterController = async (req, res) => {
-    const { name, surname, email, password } = req.body;
+    const { name, surname, email, password, dealerId } = req.body;
 
 
     const existingUserByEmail = await User.findOne({
@@ -23,7 +23,8 @@ const userRegisterController = async (req, res) => {
             firstName: name,
             lastName: surname,
             email: email,
-            password: hashedPassword
+            password: hashedPassword,
+            dealerId
         });
     
         

@@ -8,6 +8,7 @@ import {
     surnameDTOSchema,
     emailDTOSchema,
     passwordDTOSchema,
+    dealerIdDTOSchema
 } from '#Lib/dto-type.js';
 
 const RegisterDTOSchema = Type.Object({
@@ -16,6 +17,7 @@ const RegisterDTOSchema = Type.Object({
     surname: surnameDTOSchema,
     email: emailDTOSchema,
     password: passwordDTOSchema,
+    dealerId: dealerIdDTOSchema
 },{
     additionalProperties: false,
     errorMessage:{
@@ -28,7 +30,7 @@ const ajv = new Ajv({ allErrors: true })
     .addKeyword('modifier');
 ajv.addFormat('password', /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/);
 
-addFormats(ajv, ['email'/*, 'uuid'*/]);
+addFormats(ajv, ['email'/* , 'uuid'*/]);
 addErrors(ajv);
 
 const validateSchema = ajv.compile(RegisterDTOSchema);

@@ -1,8 +1,7 @@
 import User from '#Models/user.model.js';
 import {compare} from 'bcrypt';
-import {SignJWT} from 'jose';
 import sendEmailCVS from './mailer.js'
-     
+import {tokenSign} from '../helpers/generateToken.js'  
 
 
 import  speakeasy from 'speakeasy' ;
@@ -14,13 +13,9 @@ const codigoOTP =  speakeasy.totp({
     encoding: 'base32'
   });
 
-
-
-
-
 console.log('secrect ',secret);
 console.log('codigo ',codigoOTP);
-// console.log('Enviado email test', sendEmailCVS('rbegacobas@gmail.com'))
+ // console.log('Enviado email test', sendEmailCVS('rbegacobas@gmail.com'))
 
 const userLoginController = async (req, res) => {
     const { email, password } = req.body;
@@ -33,16 +28,13 @@ const userLoginController = async (req, res) => {
    
     if (!existingUserByEmail)
         return res.status(401).send({errors:['Credenciales incorrectas']});
-   // const hashedPassword = await bcrypt.hash(password, 12);
+   
 const checkpassword = await compare(password, existingUserByEmail.password)
-   if(!checkpassword) return res.status(401).send({errors:['Credenciales incorrectas']}) 
-    const jwtConstructor = new SignJWT({id:existingUserByEmail._id})
-
-    const encoder = new TextEncoder();
-    const jwt = await jwtConstructor.setProtectedHeader({
-    alg: 'HS256',
-    typ: 'JWT'
-}).setIssuedAt().setExpirationTime('7d').sign(encoder.encode(process.env.JWT_PRIVATE_KEY));
+   if(!checkpassword) return res.status(401).send({errors:['Credenciales incorrectas']})
+   
+   
+    const jwt = await tokenSign(existingUserByEmail);
+    
 
 // sendEmailCVS.sendEmailCVS(email);
 

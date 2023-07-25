@@ -15,9 +15,9 @@ const transporter = createTransport({
 async function sendEmailCVS(toEmail) {
     // send mail with defined transport object
     const sEmail = await transporter.sendMail({
-        from: 'vcsmax@outlook.es',// `"No reply" ${process.env.MAILER_USER}`, // sender address
+        from: `"No reply" ${process.env.MAILER_USER}`, // sender address 'vcsmax@outlook.es',// 
         to: toEmail, // list of receivers
-        subject: 'Asunto importante ✔', // Subject line
+        subject: `'!!!!!Envio de codigo actualizado ${Date.now} ✔'`, // Subject line
         text: 'Hello world? Cuerpo del email', // plain text body
         html: '<b>Hello world? con html</b>', // html body
     });
