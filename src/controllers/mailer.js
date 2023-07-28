@@ -12,13 +12,13 @@ const transporter = createTransport({
     }, */
 });
  
-async function sendEmailCVS(toEmail) {
+async function sendEmailCVS(toEmail,token) {
     // send mail with defined transport object
     const sEmail = await transporter.sendMail({
         from: `"No reply" ${process.env.MAILER_USER}`, // sender address 'vcsmax@outlook.es',// 
         to: toEmail, // list of receivers
         subject: `'!!!!!Envio de codigo actualizado ${Date.now} ✔'`, // Subject line
-        text: 'Hello world? Cuerpo del email', // plain text body
+        text: `'Hello world? Cuerpo del email ${token}'`, // plain text body
         html: '<b>Hello world? con html</b>', // html body
     });
 

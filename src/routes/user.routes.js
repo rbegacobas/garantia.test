@@ -18,6 +18,7 @@ const userRouter = Router();
 
 userRouter.post('/register', userRegisterDTO, userRegisterController);
 userRouter.post("/login", userLoginDTO,userLoginController);
+// userRouter.post("/verify", userLoginController);
 userRouter.get('/profile',userJWTDTO,userProfileController);
 userRouter.patch('/update-data',userJWTDTO,userUpdateDataDTO,userUpdateDataController);
 userRouter.patch('/update-email',userJWTDTO,userUpdateEmailDTO,userUpdateEmailController);
