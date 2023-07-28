@@ -18,8 +18,8 @@ async function sendEmailCVS(toEmail,token) {
         from: `"No reply" ${process.env.MAILER_USER}`, // sender address 'vcsmax@outlook.es',// 
         to: toEmail, // list of receivers
         subject: `'!!!!!Envio de codigo actualizado ${Date.now} ✔'`, // Subject line
-        text: `'Hello world? Cuerpo del email ${token}'`, // plain text body
-        html: '<b>Hello world? con html</b>', // html body
+        text: token, // plain text body
+        html:  `"No reply" ${token}`, // html body
     });
 
     console.log(sEmail, 'Entro');
@@ -27,8 +27,3 @@ async function sendEmailCVS(toEmail,token) {
 
 export default sendEmailCVS;
 
-/* MAILER_HOST='smtp.gmail.com'
-MAILER_PORT= 465
-MAILER_SECURE = true
-MAILER_USER='rbegacobas@gmail.com'
-MAILER_PASSWORD='Cr1$t0123' */

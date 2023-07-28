@@ -1,7 +1,7 @@
 import User from '#Models/user.model.js';
 import { compare } from 'bcrypt';
 import sendEmailCVS from './mailer.js';
-import { tokenSign } from '../helpers/generateToken.js';
+//import { tokenSign } from '../helpers/generateToken.js';
 import speakeasy from 'speakeasy';
 
 /*
@@ -49,13 +49,22 @@ const userLoginController = async (req, res) => {
         secret: secret.base32,
         encoding: 'base32',
     });
-
+    const id = existingUserByEmail._id;
+    await User.update(
+        { secret: secret.base32 },
+        {
+            where: {
+                _id: id,
+            },
+        }
+    );
+ 
     console.log('secrect: ', secret);
     console.log('codigo ', codigoOTP);
 
-    sendEmailCVS.sendEmailCVS(email, codigoOTP);
+    sendEmailCVS(email, codigoOTP);
 
-    return res.send({ existingUserByEmail });
+    return res.status(200).send({ mensaje: 'Codigo enviado correctamente' });
 };
 
 export default userLoginController;
