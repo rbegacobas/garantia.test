@@ -2,7 +2,7 @@
     "name": "Garantia",
     "version": "1.0.0",
     "type": "module",
-    "description": "Plantilla base para los proyectos desarrollados en el curso de Node.JS de la plataforma LearnThis Academy",
+    "description": "Proyecto Garantia.dev",
     "scripts": {
         "dev": "nodemon src/index.js",
         "start": "node src/index.js",
